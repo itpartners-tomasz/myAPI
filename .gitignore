@@ -1,0 +1,102 @@
+# ----------------------------------------------------------------
+# Plik wygenerowany automatycznie przez: https://www.toptal.com/developers/gitignore/api/node,macos,express
+# EDYTUJ TEN PLIK ZE ŚWIADOMOŚCIĄ WProwadzanych ZMIAN
+# ----------------------------------------------------------------
+
+### Express ###
+# Pomijamy domyślne lokalizacje logów Express
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pids
+*.pid
+*.seed
+*.pid.lock
+
+### MacS ###
+# Ogólne pliki systemowe
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Ikony folderów
+Icon
+
+# Pliki z atrybutami rozszerzonymi
+._*
+
+# Pliki tymczasowe Findera
+.Spotlight-V100
+.Trashes
+
+# Pliki tymczasowe (np. z edytorów tekstu)
+~$*
+.TemporaryItems
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Kosz systemowy
+.Trash/
+
+### Node ###
+# Logi
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Pliki diagnostyczne (report)
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# Pliki tymczasowe generowane przez pakiety
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Katalog z zależnościami
+node_modules/
+
+# Pliki konfiguracyjne ze środowiska
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.envrc
+
+# Pliki cache i buildy
+.npm
+.eslintcache
+coverage
+.nyc_output
+.node_repl_history
+*.tgz
+
+# Pliki konfiguracyjce edytorów
+.idea
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history
+
+# Inne
+.node-gyp/
+dist
+build/
+.next/
+
+# Konkretne pliki (jeśli używasz np. `dotenv`)
+.env.test
+.env.development
+
+# Pliki cache TypeScript
+*.tsbuildinfo
+
+# END
