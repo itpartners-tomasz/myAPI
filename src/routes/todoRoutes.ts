@@ -14,6 +14,6 @@ router.put('/:id', todoController.overwriteTodo);
 
 router.patch('/:id', todoController.updateTodo);
 
-router.delete('/:id', todoController.deleteTodo);    
+router.delete('/:id', todoController.deleteTodo);
 
 export default router;

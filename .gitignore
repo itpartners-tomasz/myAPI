@@ -100,3 +100,8 @@ build/
 *.tsbuildinfo
 
 # END
+/src/generated/prisma
+
+# Ignore SQLite database files
+/prisma/*.db
+/prisma/*.db-journal
