@@ -1,17 +1,26 @@
 import { ErrorWithStatus } from '../utils/errorWithStatus.js';
 import { Prisma } from '../db.js';
+import { ZodError } from 'zod';
 
 
 export const errorHandler = (err: ErrorWithStatus | Error, req: any, res: any, next: any) => {
 
     console.error(`[API_ERROR] Path: ${req.path} | Message: ${err.message}`);
 
+    if (err instanceof ZodError) {
+        return res.status(400).json({
+            message: err.issues.map((e) => ({
+                error: e.message
+            })),
+        });
+    }
+
     if (err instanceof ErrorWithStatus && err.status) {
         return res.status(err.status).json({ message: err.message || 'Internal Server Error' });
     }
 
     if (err instanceof Prisma.PrismaClientValidationError) {
-        return res.status(400).json({ message: 'Invalid data provided'});
+        return res.status(400).json({ message: 'Invalid data provided' });
     }
 
 

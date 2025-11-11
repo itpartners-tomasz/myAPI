@@ -22,9 +22,6 @@ export const getAllTodos = async (req: Request, res: Response, next: NextFunctio
 // @access Public
 export const getTodoById = async (req: Request, res: Response, next: NextFunction) => {
     const id = req.params.id;
-    if (!id || id.trim() === '') {
-        return next(new ErrorWithStatus('ID parameter is required', 400));
-    }
     try {
         const todo = await prisma.todo.findUniqueOrThrow({
             where: { id: id }
@@ -41,9 +38,6 @@ export const getTodoById = async (req: Request, res: Response, next: NextFunctio
 // @access Public
 export const createTodo = async (req: Request, res: Response, next: NextFunction) => {
     const { title } = req.body;
-    if (typeof title !== 'string' || title.trim() === '') {
-        return next(new ErrorWithStatus('Invalid todo data', 400));
-    }
     try {
         const newTodo = await prisma.todo.create({
             data: {
@@ -61,13 +55,7 @@ export const createTodo = async (req: Request, res: Response, next: NextFunction
 // @access Public
 export const overwriteTodo = async (req: Request, res: Response, next: NextFunction) => {
     const id = req.params.id;
-    if (!id || id.trim() === '') {
-        return next(new ErrorWithStatus('ID parameter is required', 400));
-    }
     const { title, completed } = req.body;
-    if (typeof title !== 'string' || title.trim() === '' || typeof completed !== 'boolean') {
-        return next(new ErrorWithStatus('Invalid data', 400));
-    }
     try {
         const overwrittedTodo = await prisma.todo.update({
             where: { id: id },
@@ -88,16 +76,7 @@ export const overwriteTodo = async (req: Request, res: Response, next: NextFunct
 // @access Public
 export const updateTodo = async (req: Request, res: Response, next: NextFunction) => {
     const id = req.params.id;
-    if (!id || id.trim() === '') {
-        return next(new ErrorWithStatus('ID parameter is required', 400));
-    }
     const { title, completed } = req.body;
-    if (title === undefined && completed === undefined) {
-        return next(new ErrorWithStatus('No data provided for update', 400));
-    }
-    if ((title !== undefined && (typeof title !== 'string' || title.trim() === '')) || (completed !== undefined && typeof completed !== 'boolean')) {
-        return next(new ErrorWithStatus('Invalid data', 400));
-    }
     try {
         const overwrittedTodo = await prisma.todo.update({
             where: { id: id },
@@ -117,9 +96,6 @@ export const updateTodo = async (req: Request, res: Response, next: NextFunction
 // @access Public
 export const deleteTodo = async (req: Request, res: Response, next: NextFunction) => {
     const id = req.params.id;
-    if (!id || id.trim() === '') {
-        return next(new ErrorWithStatus('ID parameter is required', 400));
-    }
     try {
         await prisma.todo.delete({
             where: { id: id }
