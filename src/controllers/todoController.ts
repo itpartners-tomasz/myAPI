@@ -1,20 +1,14 @@
 import { prisma } from '../db.js';
 import { Request, Response, NextFunction } from 'express';
-import { ErrorWithStatus } from '../utils/errorWithStatus.js';
 
 // @desc   Get all todos
 // @route  GET /api/todos
 // @access Public
 export const getAllTodos = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        const todos = await prisma.todo.findMany({
-            orderBy: { createdAt: 'desc' }
-        });
-        return res.status(200).json(todos);
-    }
-    catch (error) {
-        return next(error);
-    }
+    const todos = await prisma.todo.findMany({
+        orderBy: { createdAt: 'desc' }
+    });
+    return res.status(200).json(todos);
 }
 
 // @desc   Get todo by ID
@@ -22,15 +16,11 @@ export const getAllTodos = async (req: Request, res: Response, next: NextFunctio
 // @access Public
 export const getTodoById = async (req: Request, res: Response, next: NextFunction) => {
     const id = req.params.id;
-    try {
-        const todo = await prisma.todo.findUniqueOrThrow({
-            where: { id: id }
-        });
-        return res.status(200).json(todo);
-    } catch (error) {
-        return next(error);
-    }
 
+    const todo = await prisma.todo.findUniqueOrThrow({
+        where: { id: id }
+    });
+    return res.status(200).json(todo);
 }
 
 // @desc   Create a new todo
@@ -38,16 +28,12 @@ export const getTodoById = async (req: Request, res: Response, next: NextFunctio
 // @access Public
 export const createTodo = async (req: Request, res: Response, next: NextFunction) => {
     const { title } = req.body;
-    try {
-        const newTodo = await prisma.todo.create({
-            data: {
-                title: title,
-            }
-        });
-        return res.status(201).json(newTodo);
-    } catch (error) {
-        return next(error);
-    }
+    const newTodo = await prisma.todo.create({
+        data: {
+            title: title,
+        }
+    });
+    return res.status(201).json(newTodo);
 }
 
 // @desc   Overwrite a todo
@@ -56,19 +42,14 @@ export const createTodo = async (req: Request, res: Response, next: NextFunction
 export const overwriteTodo = async (req: Request, res: Response, next: NextFunction) => {
     const id = req.params.id;
     const { title, completed } = req.body;
-    try {
-        const overwrittedTodo = await prisma.todo.update({
-            where: { id: id },
-            data: {
-                title: title,
-                completed: completed,
-            }
-        });
-        return res.status(200).json(overwrittedTodo);
-    } catch (error) {
-        return next(error);
-    }
-
+    const overwrittedTodo = await prisma.todo.update({
+        where: { id: id },
+        data: {
+            title: title,
+            completed: completed,
+        }
+    });
+    return res.status(200).json(overwrittedTodo);
 }
 
 // @desc   Update a todo
@@ -77,18 +58,14 @@ export const overwriteTodo = async (req: Request, res: Response, next: NextFunct
 export const updateTodo = async (req: Request, res: Response, next: NextFunction) => {
     const id = req.params.id;
     const { title, completed } = req.body;
-    try {
-        const overwrittedTodo = await prisma.todo.update({
-            where: { id: id },
-            data: {
-                title: title,
-                completed: completed,
-            }
-        });
-        return res.status(200).json(overwrittedTodo);
-    } catch (error) {
-        return next(error);
-    }
+    const overwrittedTodo = await prisma.todo.update({
+        where: { id: id },
+        data: {
+            title: title,
+            completed: completed,
+        }
+    });
+    return res.status(200).json(overwrittedTodo);
 }
 
 // @desc   Delete a todo
@@ -96,13 +73,8 @@ export const updateTodo = async (req: Request, res: Response, next: NextFunction
 // @access Public
 export const deleteTodo = async (req: Request, res: Response, next: NextFunction) => {
     const id = req.params.id;
-    try {
-        await prisma.todo.delete({
-            where: { id: id }
-        });
-        return res.status(204).send();
-    }
-    catch (error) {
-        return next(error);
-    }
+    await prisma.todo.delete({
+        where: { id: id }
+    });
+    return res.status(204).send();
 } 
